@@ -1,5 +1,4 @@
 import React from 'react'
-import {setDate} from './Function';
 
 
 class Title extends React.Component {
@@ -66,7 +65,6 @@ class Date extends React.Component {
 	render() {
 		return (
 			<div id="Date">
-			<h1>{setDate()}</h1>
 			</div>
 		);
 	}
@@ -76,6 +74,8 @@ class Todo extends React.Component {
 		return (
 			<div id="Todo">
 				<h1>Tarefas</h1>
+				<div id="List">
+				</div>
 			</div>
 
 		);
