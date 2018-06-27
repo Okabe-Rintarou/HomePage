@@ -1,4 +1,7 @@
+//News powered by NewsAPI https://newsapi.org/
+
 import React from 'react'
+
 
 //Função que mostra as horas
 export class RealTime extends React.Component 
@@ -51,6 +54,8 @@ export class RealTime extends React.Component
 }
 
 export class ToDoList extends React.Component{
+
+
 	constructor(props)
 	{
 		super (props);
@@ -59,11 +64,29 @@ export class ToDoList extends React.Component{
 			number: 0,
 			list: []
 		}
+
+
+
+		var url = 'https://newsapi.org/v2/top-headlines?' +
+			'country=us&' +
+			'apiKey=d159c65d36314e5bb79a8a7f28e3c1d6';
+		var req = new Request(url);
+		fetch(req)
+			.then(function(response) {
+				console.log("OI!!");
+				console.log(response.json());
+
+			})
+
+
+
+
+
 	}
 
-	addToList()
-	{
-		let x = document.getElementById("itemList");
+	addToList() {
+
+		let x = document.getElementById("itemList").value;
 		let v = this.state.list;
 		let n = this.state.number;
 		v.push(x);
@@ -72,7 +95,7 @@ export class ToDoList extends React.Component{
 			number: n,
 			list: v
 		});
-		console.log("Uia");
+
 	}
 	deleteList()
 	{
@@ -80,31 +103,26 @@ export class ToDoList extends React.Component{
 			number: 0,
 			list: []
 		})
-		console.log("Eita");
+
 	}
+
 	createList()
 	{
-		let i;
-		let ret = "";
-		for(i = 0; i < this.state.number; i++)
-		{
-			console.log("Yay");
-			ret = ret + "<li>" + this.state.list[i] + "</li>";
-		}
-		return ret;
+		var i = 0;
+		return this.state.list.map((valor) =>  <li key={i++}> {valor} </li>)
 	}
 
 	render(){
 		return(
 				<div>
-					<ul>
-						{this.createList()}	
-					</ul>
-					<button onClick={this.deleteList()}>Deletar lista</button>
-					<input type="text" id="itemList"></input>
-					<button onClick={this.addToList()}>Adicionar na lista</button>
-					</div>
-	  );
+				<ul>
+				{this.createList()}
+				</ul>
+				<input className="ListButtons" type="text" id="itemList"></input>
+				<button className="ListButtons" onClick={() => this.addToList()}>Adicionar na lista</button>
+				<button className="ListButtons" onClick={ () => this.deleteList()}>Deletar lista</button>
+				</div>
+			  );
 	}
 }
 

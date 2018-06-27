@@ -24,14 +24,22 @@
 	width: 30%;
 
 }
+
+#List
+{
+	text-align: left;
+
+}
+.ListButtons
+{
+	margin: 5% 2% 0%;
+	float: left;
+}
+
 #News
 {
 }
 #Window
-{
-}
-
-.Div
 {
 }
 
