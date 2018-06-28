@@ -17,7 +17,7 @@ class Up extends React.Component {
 	render() {
 		return (
 			<div className="Div">
-				<Welcome/>
+				<Weather/>
 				<Date/>
 			</div>
 		);
@@ -52,15 +52,16 @@ class Down extends React.Component {
 				);
 	}
 }
-class Welcome extends React.Component {
-	render() {
+
+class Weather extends React.Component {
+	render(){
 		return (
-			<div id="Welcome">
-				<h1>Bem vindo usuário!</h1>
-			</div>
+				<div id="Weather">
+				</div>
 		);
 	}
 }
+
 class Date extends React.Component {
 	render() {
 		return (
@@ -94,8 +95,8 @@ class News extends React.Component {
 class Window extends React.Component {
 	render() {
 		return (
-			<div id="Window" className="RightChild">
-				<h1>Extras</h1>
+			<div id="Stocks" className="RightChild">
+				<h1>Stocks</h1>
 			</div>
 
 		);

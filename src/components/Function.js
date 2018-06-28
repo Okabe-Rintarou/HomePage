@@ -1,4 +1,5 @@
 //News powered by NewsAPI https://newsapi.org/
+//Weather powered by OpenWeatherMap https://openweathermap.org/
 
 import React from 'react'
 
@@ -47,7 +48,7 @@ export class RealTime extends React.Component
 	render() {
 		return (
 				<div>
-				<h1>{this.createString()}</h1>
+				<h3>{this.createString()}</h3>
 				</div>
 			   );
 	}
@@ -142,31 +143,101 @@ export class News extends React.Component{
 					news: newss
 				});
 			})
-		url =  'http://api.openweathermap.org/data/2.5/forecast?id=524901&APPID=f84480eeaf54d5e48cd7944efd28add2';
-		req = new Request(url);
-		fetch(req).then(response => response.json())
-			.then((response) => {
-					console.log(response);
-				});
-	}
 
-	componentWillUnmount() {
 	}
 
 	getNews()
 	{
 		let i = 0;
-		return this.state.news.map((valor) =>  <li key={i++}> {valor} </li>)
+		return this.state.news.map((valor) =>  <li text-align="left" float="left" key={i++}> {valor} </li>)
 	}
 
 
 	render(){
 		return(
-				<div>
-				<h1>Notícias</h1>
+				<div text-align="left">
+				<h1 text-align="center">Notícias</h1>
 				{this.getNews()}
 				</div>
 			  );
+	}
+}
+
+
+
+//Utiliza uma API para pegar o clima e mostrar na parte de cima
+export class Weather extends React.Component {
+	constructor(props)
+	{
+		super(props);
+		this.state={
+			name: "",
+			temp: 0,
+			weather: ""
+		}
+	}
+	componentDidMount(){
+		let url =  'http://api.openweathermap.org/data/2.5/weather?id=3448433&lang=pt&APPID=f84480eeaf54d5e48cd7944efd28add2';
+		let req = new Request(url);
+		fetch(req).then(response => response.json())
+			.then((response) => {
+				console.log(response);
+				console.log(response["main"]["temp"]);
+				console.log(response["main"]["temp_max"]);
+				console.log(response["main"]["temp_min"]);
+				console.log(response["name"]);
+				console.log(response["weather"][0]["description"]);
+				this.setState({
+					name: response["name"],
+					temp: response["main"]["temp"],
+					weather: response["weather"][0]["description"]
+				})
+			});
+	}
+
+	getTemp()
+	{
+		if(this.state.temp === 0)
+		{
+			return "Carregando clima, agurde...";
+		}
+		else
+		{
+			let temp = this.state.temp - 273.15 + " ºC"
+			return this.getName() + " | " + this.getWeather() + " " + temp;
+		}
+	}
+
+	getWeather()
+	{
+		return this.state.weather.charAt(0).toUpperCase() + this.state.weather.slice(1);
+	}
+
+	getName()
+	{
+		return this.state.name.charAt(0).toUpperCase() + this.state.name.slice(1);
+	}
+
+	render(){
+		return(
+				<div>
+				<h3>{this.getTemp()}</h3>
+				</div>
+		);
+	}
+}
+
+
+export class Stocks extends React.Component
+{
+	constructor(props)
+	{
+		super(props);
+		this.state={
+			Money1: [],
+			Money2: [],
+			Rate: []
+		}
 	}
 
 

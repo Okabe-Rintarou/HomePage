@@ -7,6 +7,7 @@ import './components/UI.css';
 import {RealTime} from './components/Function';
 import {ToDoList} from './components/Function';
 import {News} from './components/Function';
+import {Weather} from './components/Function';
 
 ReactDOM.render(
   <Title />,
@@ -26,4 +27,9 @@ ReactDOM.render(
 ReactDOM.render(
   <News />,
   document.getElementById('News')
+);
+
+ReactDOM.render(
+  <Weather />,
+  document.getElementById('Weather')
 );
