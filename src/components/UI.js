@@ -73,8 +73,7 @@ class Todo extends React.Component {
 	render() {
 		return (
 			<div id="Todo">
-				<h1>Tarefas</h1>
-				<div id="List">
+				<div id="List" className="Content">
 				</div>
 			</div>
 
@@ -84,8 +83,9 @@ class Todo extends React.Component {
 class News extends React.Component {
 	render() {
 		return (
-			<div id="News" className="RightChild">
-				<h1>Notícias</h1>
+			<div className="RightChild">
+				<div id="News" className="Content">
+				</div>
 			</div>
 
 		);

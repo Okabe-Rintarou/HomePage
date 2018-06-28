@@ -6,6 +6,7 @@ import Title from './components/UI';
 import './components/UI.css';
 import {RealTime} from './components/Function';
 import {ToDoList} from './components/Function';
+import {News} from './components/Function';
 
 ReactDOM.render(
   <Title />,
@@ -22,3 +23,7 @@ ReactDOM.render(
   document.getElementById('List')
 );
 
+ReactDOM.render(
+  <News />,
+  document.getElementById('News')
+);

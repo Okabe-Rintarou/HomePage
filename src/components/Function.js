@@ -53,9 +53,8 @@ export class RealTime extends React.Component
 	}
 }
 
+//Faz um sistema simples de tarefas para fazer
 export class ToDoList extends React.Component{
-
-
 	constructor(props)
 	{
 		super (props);
@@ -64,23 +63,6 @@ export class ToDoList extends React.Component{
 			number: 0,
 			list: []
 		}
-
-
-
-		var url = 'https://newsapi.org/v2/top-headlines?' +
-			'country=us&' +
-			'apiKey=d159c65d36314e5bb79a8a7f28e3c1d6';
-		var req = new Request(url);
-		fetch(req)
-			.then(function(response) {
-				console.log("OI!!");
-				console.log(response.json());
-
-			})
-
-
-
-
 
 	}
 
@@ -115,7 +97,8 @@ export class ToDoList extends React.Component{
 	render(){
 		return(
 				<div>
-				<ul>
+				<h1 text-align="center" float="center">Tarefas</h1>
+				<ul id="list">
 				{this.createList()}
 				</ul>
 				<input className="ListButtons" type="text" id="itemList"></input>
@@ -125,4 +108,68 @@ export class ToDoList extends React.Component{
 			  );
 	}
 }
+
+
+//Utiliza uma API para pegar notícias
+export class News extends React.Component{
+	constructor(props)
+	{
+		super(props);
+		this.state = {
+			image: [],
+			news: []
+		}
+
+	}
+
+	componentDidMount(){
+		var images = [];
+		var newss = [];
+
+		var url = 'https://newsapi.org/v2/top-headlines?' +
+			'country=us&' +
+			'apiKey=d159c65d36314e5bb79a8a7f28e3c1d6';
+		var req = new Request(url);
+		fetch(req).then(response => response.json())
+			.then((response) => {
+				for(let i = 0; i < 20; ++i)
+				{
+					images.push(response["articles"][i]["urlToImage"]);
+					newss.push(response["articles"][i]["title"]);
+				}
+				this.setState({
+					images: images,
+					news: newss
+				});
+			})
+		url =  'http://api.openweathermap.org/data/2.5/forecast?id=524901&APPID=f84480eeaf54d5e48cd7944efd28add2';
+		req = new Request(url);
+		fetch(req).then(response => response.json())
+			.then((response) => {
+					console.log(response);
+				});
+	}
+
+	componentWillUnmount() {
+	}
+
+	getNews()
+	{
+		let i = 0;
+		return this.state.news.map((valor) =>  <li key={i++}> {valor} </li>)
+	}
+
+
+	render(){
+		return(
+				<div>
+				<h1>Notícias</h1>
+				{this.getNews()}
+				</div>
+			  );
+	}
+
+
+}
+
 

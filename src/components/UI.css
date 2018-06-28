@@ -25,7 +25,7 @@
 
 }
 
-#List
+#list
 {
 	text-align: left;
 
@@ -36,8 +36,11 @@
 	float: left;
 }
 
-#News
+.Content
 {
+	display: inline-block;
+	height: 100%;
+	overflow: auto;
 }
 #Window
 {

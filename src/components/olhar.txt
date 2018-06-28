@@ -1,4 +1,6 @@
 https://newsapi.org/docs/get-started#top-headlines
+https://home.openweathermap.org/api_keys
+
 
 flexbox
 cssgrid
