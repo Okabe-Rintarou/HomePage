@@ -8,6 +8,7 @@ import {RealTime} from './components/Function';
 import {ToDoList} from './components/Function';
 import {News} from './components/Function';
 import {Weather} from './components/Function';
+import {Stocks} from './components/Function';
 
 ReactDOM.render(
   <Title />,
@@ -32,4 +33,9 @@ ReactDOM.render(
 ReactDOM.render(
   <Weather />,
   document.getElementById('Weather')
+);
+
+ReactDOM.render(
+  <Stocks />,
+  document.getElementById('Stocks')
 );

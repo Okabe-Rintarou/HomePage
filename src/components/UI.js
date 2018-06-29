@@ -39,7 +39,7 @@ class Right extends React.Component {
 		return (
 				<div className="Div">
 					<News/>
-					<Window/>
+					<Stocks/>
 				</div>
 				);
 	}
@@ -92,11 +92,12 @@ class News extends React.Component {
 		);
 	}
 }
-class Window extends React.Component {
+class Stocks extends React.Component {
 	render() {
 		return (
-			<div id="Stocks" className="RightChild">
-				<h1>Stocks</h1>
+			<div className="RightChild">
+				<div id="Stocks" className="Content">
+				</div>
 			</div>
 
 		);

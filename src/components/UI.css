@@ -39,10 +39,8 @@
 {
 	display: inline-block;
 	height: 100%;
+	width: 100%;
 	overflow: auto;
-}
-#Window
-{
 }
 
 .RightChild
@@ -53,5 +51,10 @@
 	float: left;
 	width: 64%;
 	height: 30vh;
+	text-align: center;
 }
-
+#Stocks
+{
+	height: 100%;
+	overflow: auto;
+}

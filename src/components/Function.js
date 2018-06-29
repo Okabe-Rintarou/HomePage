@@ -1,5 +1,6 @@
 //News powered by NewsAPI https://newsapi.org/
 //Weather powered by OpenWeatherMap https://openweathermap.org/
+//Stocks powered by Alpha Vantage https://www.alphavantage.co/
 
 import React from 'react'
 
@@ -11,6 +12,8 @@ export class RealTime extends React.Component
 		super(props);
 		this.state = {date: new Date()};
 	}
+
+	//Chama a função updateTime a cada segundo
 	componentDidMount(){
 		this.timeID = setInterval(
 				() => this.updateTime(), 1000);
@@ -20,6 +23,7 @@ export class RealTime extends React.Component
 		clearInterval(this.timerID);
 	}
 
+	//Atualiza o relógio
 	updateTime() {
 		this.setState({
 			date: new Date()
@@ -39,6 +43,7 @@ export class RealTime extends React.Component
 
 	}
 
+	//Cria o relógio de uma maneira mais arrumada
 	createString()
 	{
 		return "" + this.state.date.getDate() + "/" + this.state.date.getMonth() + "/" + this.state.date.getFullYear() + " " + this.fixTime(this.state.date.getHours()) + ":" + this.fixTime(this.state.date.getMinutes()) + ":" + this.fixTime(this.state.date.getSeconds());
@@ -67,6 +72,7 @@ export class ToDoList extends React.Component{
 
 	}
 
+	//Quando o botão de adicionar é clicado, ele adiciona o texto no campo de entrada na lista
 	addToList() {
 
 		let x = document.getElementById("itemList").value;
@@ -80,6 +86,8 @@ export class ToDoList extends React.Component{
 		});
 
 	}
+
+	//Delet a lista inteira
 	deleteList()
 	{
 		this.setState({
@@ -89,6 +97,7 @@ export class ToDoList extends React.Component{
 
 	}
 
+	//Imprime a lista
 	createList()
 	{
 		var i = 0;
@@ -116,6 +125,8 @@ export class News extends React.Component{
 	constructor(props)
 	{
 		super(props);
+		//image: Link para as imagens
+		//news: Título das notícias
 		this.state = {
 			image: [],
 			news: []
@@ -146,18 +157,21 @@ export class News extends React.Component{
 
 	}
 
+	//Imprime as notícias
 	getNews()
 	{
 		let i = 0;
-		return this.state.news.map((valor) =>  <li text-align="left" float="left" key={i++}> {valor} </li>)
+		return this.state.news.map((valor) =>  <p key={i++}> {valor} </p>)
 	}
 
 
 	render(){
 		return(
-				<div text-align="left">
-				<h1 text-align="center">Notícias</h1>
-				{this.getNews()}
+				<div>
+					<h1 float="center" text-align="center">Notícias</h1>
+					<div text-align="left">
+						{this.getNews()}
+					</div>
 				</div>
 			  );
 	}
@@ -181,12 +195,6 @@ export class Weather extends React.Component {
 		let req = new Request(url);
 		fetch(req).then(response => response.json())
 			.then((response) => {
-				console.log(response);
-				console.log(response["main"]["temp"]);
-				console.log(response["main"]["temp_max"]);
-				console.log(response["main"]["temp_min"]);
-				console.log(response["name"]);
-				console.log(response["weather"][0]["description"]);
 				this.setState({
 					name: response["name"],
 					temp: response["main"]["temp"],
@@ -195,11 +203,12 @@ export class Weather extends React.Component {
 			});
 	}
 
+	//Imprime os dados da temperatura e tempo
 	getTemp()
 	{
 		if(this.state.temp === 0)
 		{
-			return "Carregando clima, agurde...";
+			return "Carregando clima, aguarde...";
 		}
 		else
 		{
@@ -208,11 +217,13 @@ export class Weather extends React.Component {
 		}
 	}
 
+	//Adquire o nome do tempo atual
 	getWeather()
 	{
 		return this.state.weather.charAt(0).toUpperCase() + this.state.weather.slice(1);
 	}
 
+	//Adquire o nome do local
 	getName()
 	{
 		return this.state.name.charAt(0).toUpperCase() + this.state.name.slice(1);
@@ -228,17 +239,92 @@ export class Weather extends React.Component {
 }
 
 
+//Classe que mostra taxa de câmbio pela API
 export class Stocks extends React.Component
 {
 	constructor(props)
 	{
 		super(props);
+		//Money1: Sigla da moeda estrangeira
+		//Name1: Nome da moeda entrangeira
+		//Money2: Sigla da moeda comparada
+		//Name2: Nome da moeda comparada
+		//Rate: Razão do valor das duas moedas
 		this.state={
 			Money1: [],
+			Name1: [],
 			Money2: [],
+			Name2: [],
 			Rate: []
 		}
 	}
+
+	componentDidMount(){
+		this.getData("USD");
+		this.getData("EUR");
+		this.getData("JPY");
+		this.getData("CNY");
+	}
+
+	//Adquire os dados da sigla passada
+	getData(x)
+	{
+		let Dosh1 = this.state.Money1;
+		let Name1 = this.state.Name1;
+		let Dosh2 = this.state.Money2;
+		let Name2 = this.state.Name2;
+		let Rate = this.state.Rate;
+		let url =  "http://www.alphavantage.co/query?function=CURRENCY_EXCHANGE_RATE&from_currency=" + x + "&to_currency=BRL&apikey=7B49SBU7EGB7KEAU";
+
+		let req = new Request(url);
+		fetch(req).then(response => response.json())
+			.then((response) => {
+				console.log(response);
+				Dosh1.push(response["Realtime Currency Exchange Rate"]["1. From_Currency Code"]);
+				Name1.push(response["Realtime Currency Exchange Rate"]["2. From_Currency Name"]);
+				Dosh2.push(response["Realtime Currency Exchange Rate"]["3. To_Currency Code"]);
+				Name2.push(response["Realtime Currency Exchange Rate"]["4. To_Currency Name"]);
+				Rate.push(response["Realtime Currency Exchange Rate"]["5. Exchange Rate"]);
+				this.setState({
+					Money1: Dosh1,
+					Name1: Name1,
+					Money2: Dosh2,
+					Name2: Name2,
+					Rate: Rate
+				})
+			});
+	}
+
+	//Imprime os valores na interface
+	getMoney()
+	{
+		var i = 0;
+		if(this.state.Money1.length > 0)
+		{
+			return (this.state.Money1.map((valor) => 
+						<div key={i}>
+							<p>	1 {valor} ({this.state.Name1[i]}) = {this.state.Rate[i]} {this.state.Money2[i]} ({this.state.Name2[i++]})</p>
+						</div>
+					));
+		}
+		else
+		{
+			return <h3>Carregando, por favor aguarde....</h3>
+		}
+		
+
+	}
+
+	render(){
+		return(
+				<div>
+					<h1>Taxa de Câmbio</h1>
+					{this.getMoney()}
+				</div>
+			  );
+	}
+
+
 
 
 }
