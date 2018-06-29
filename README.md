@@ -10,7 +10,7 @@ O clima, as notícias e a taxa e câmbio foram adquridas pela internet com o uso
 
 O projeto foi escrito em JavaScript, HTML e CSS. Foi utilizado o Reactjs para seu desenvolvimento.
 
-Para, é necessário ter instado o programa npm, com o Reactjs instalado.
+É necessário ter instado o programa npm, com o Reactjs instalado.
 Para iniciar o programa, entrar na pasta raiz e executar o comando "npm start" para que o programa seja executado. 
 
 
